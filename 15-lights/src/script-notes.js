@@ -167,6 +167,8 @@ tick();
 //* Middle: DirectionalLight, PointLight
 //* Expensive: SpotLight, RectAreaLight
 
+//* adjusting near and far properties to remain in scene will improve precision
+
 //? AmbientLight - omnidirectional light, no shadows, uniform regardless of object shapes
 //? good for simulating light bouncing when combined with other light sources
 //* can set properties in-line or after using dot notation
@@ -198,7 +200,7 @@ tick();
 // scene.add(pointLight);
 
 //? RectAreaLight - mix between directional and diffuse, similar to big rectangle lights seen on photoshoots
-//? ONLY works with MeshStandardMaterial and MeshPhysicalMaterial
+//? ONLY works with MeshStandardMaterial and MeshPhysicalMaterial, can't generate shadows
 //* RectAreaLight(color: color, intensity: num, width: num, height: num)
 // const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 5, 3, 1);
 //* change position of light source
@@ -253,3 +255,10 @@ tick();
 //* SpotLightHelper(targetLight: var)
 // const spotLightHelper = new THREE.SpotLightHelper(spotLight);
 // scene.add(spotLightHelper);
+
+//? CameraHelper - mostly for shadow help
+//* view light's shadow camera: light.shadow.camera
+// console.log(directionalLight.shadow.camera);
+//* camera helper
+// const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+// scene.add(directionalLightCameraHelper);
