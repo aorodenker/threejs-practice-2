@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "gsap",
     "helvetiker",
     "lerp",
     "matcap",
@@ -13,6 +14,7 @@
     "photoshoots",
     "threejs",
     "Toon",
+    "webgl",
     "wireframe"
   ]
 }
