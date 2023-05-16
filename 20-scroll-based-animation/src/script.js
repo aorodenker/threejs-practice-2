@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import * as dat from 'lil-gui';
 import gsap from 'gsap';
 
-// Debug
 const gui = new dat.GUI();
 
 const parameters = {
@@ -14,20 +13,15 @@ gui.addColor(parameters, 'materialColor').onChange(() => {
     particlesMaterial.color.set(parameters.materialColor);
 });
 
-// Textures
 const textureLoader = new THREE.TextureLoader();
 
 const gradientTexture = textureLoader.load('textures/gradients/3.jpg');
 gradientTexture.magFilter = THREE.NearestFilter;
 
-
-// Canvas
 const canvas = document.querySelector('canvas.webgl');
 
-// Scene
 const scene = new THREE.Scene();
 
-// Objects
 const material = new THREE.MeshToonMaterial({
     color: parameters.materialColor,
     gradientMap: gradientTexture
@@ -60,7 +54,6 @@ scene.add(mesh1, mesh2, mesh3);
 
 const sectionMeshes = [mesh1, mesh2, mesh3];
 
-// Particles
 const particleCount = 200;
 const positions = new Float32Array(particleCount * 3);
 
@@ -83,13 +76,11 @@ const particlesMaterial = new THREE.PointsMaterial({
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particles);
 
-// Lights
 const directionalLight = new THREE.DirectionalLight('#ffffff', 1);
 directionalLight.position.set(1, 1, 0);
 
 scene.add(directionalLight);
 
-// Sizes
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -106,14 +97,12 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// Camera
 const cameraGroup = new THREE.Group();
 const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100);
 camera.position.z = 6;
 cameraGroup.add(camera);
 scene.add(cameraGroup);
 
-// Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     alpha: true
@@ -121,7 +110,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// Scroll
 let scrollY = window.scrollY;
 let currentSection = 0;
 
@@ -143,7 +131,6 @@ window.addEventListener('scroll', () => {
     };
 });
 
-// Cursor
 const cursor = {};
 cursor.x = 0;
 cursor.y = 0;
@@ -153,7 +140,6 @@ window.addEventListener('mousemove', (e) => {
     cursor.y = e.clientY / sizes.height - 0.5;
 });
 
-// Animate
 const clock = new THREE.Clock();
 let previousTime = 0;
 
@@ -162,7 +148,6 @@ const tick = () => {
     const deltaTime = elapsedTime - previousTime;
     previousTime = elapsedTime;
 
-    // Animate Camera
     camera.position.y = - scrollY / sizes.height * objectsDistance;
 
     const parallaxX = cursor.x * 0.5;
@@ -171,7 +156,6 @@ const tick = () => {
     cameraGroup.position.x += (parallaxX - cameraGroup.position.x) * deltaTime * 5;
     cameraGroup.position.y += (parallaxY - cameraGroup.position.y) * deltaTime * 5;
 
-    // Animate Meshes
     for (const mesh of sectionMeshes) {
         mesh.rotation.x += deltaTime * 0.1;
         mesh.rotation.y += deltaTime * 0.12;
