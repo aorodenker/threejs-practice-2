@@ -3,7 +3,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui';
 const gui = new dat.GUI();
 
-// Textures
 const textureLoader = new THREE.TextureLoader();
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 
@@ -26,13 +25,10 @@ const environmentMapTexture = cubeTextureLoader.load([
     '/textures/environmentMaps/testMap/nz.png',
 ]);
 
-// Canvas
 const canvas = document.querySelector('canvas.webgl');
 
-// Scene
 const scene = new THREE.Scene();
 
-// Objects
 const material = new THREE.MeshStandardMaterial();
 material.metalness = 1;
 material.roughness = 0;
@@ -56,7 +52,6 @@ torus.position.x = 1.5;
 
 scene.add(sphere, plane, torus);
 
-// Lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
@@ -67,7 +62,6 @@ pointLight.position.z = 4;
 
 scene.add(pointLight);
 
-// Sizes
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -85,25 +79,21 @@ window.addEventListener('resize', () =>
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
 camera.position.x = 1;
 camera.position.y = 1;
 camera.position.z = 2;
 scene.add(camera);
 
-// Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
-// Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// Animate
 const clock = new THREE.Clock();
 
 const tick = () =>
